@@ -1,5 +1,6 @@
 import tiles
 import board
+import test
 
 EASY = 9
 MED = 16
@@ -10,6 +11,7 @@ STATE = 0
 DIFF = 1
 
 def setup():
+    test.run()
     size(740, 780)
     noLoop()
 
