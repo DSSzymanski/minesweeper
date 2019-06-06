@@ -5,10 +5,14 @@ import test
 EASY = 9
 MED = 16
 ADV = 24
+TITLE_SCREEN = 0
+GAME_SCREEN = 1
+END_SCREEN = 2 
 b = None
 t = None
-STATE = 0
+STATE = TITLE_SCREEN
 DIFF = 1
+ending = 0
 
 def setup():
     test.run()
@@ -18,7 +22,7 @@ def setup():
 def draw():
     background(220, 220, 200)
     fill(220, 220, 200)
-    if STATE == 0:
+    if STATE == TITLE_SCREEN:
         rect(width/4, height/8 + 100, width/2, 100)
         rect(width/4, height/8 + 250, width/2, 100)
         rect(width/4, height/8 + 400, width/2, 100)
@@ -34,10 +38,10 @@ def draw():
         textAlign(BASELINE, BASELINE)
         
         fill(220, 220, 200)
-    elif STATE == 1:
+    elif STATE == GAME_SCREEN:
         rect(10, 50, 270, 270)
         t.show_tiles()
-    elif STATE == 2:
+    elif STATE == END_SCREEN:
         rect(10, 50, 270, 270)
         t.show_tiles()
         
@@ -48,7 +52,10 @@ def draw():
         
         fill(0)
         textSize(32)
-        text('GAME OVER!!!', 270, 35)
+        if ending == 1:
+            text('YOU WIN!!!', 280, 35)
+        else:
+            text('GAME OVER!!!', 270, 35)
         text('Play Again?', 285, 330)
         text('Y', 314, 381)
         text('N', 405, 381)
@@ -58,7 +65,8 @@ def mousePressed():
     global t
     global b
     global DIFF
-    if STATE == 0:
+    global ending
+    if STATE == TITLE_SCREEN:
         rect(width/4, height/8 + 100, width/2, 100)
         rect(width/4, height/8 + 250, width/2, 100)
         rect(width/4, height/8 + 400, width/2, 100)
@@ -81,14 +89,17 @@ def mousePressed():
             t = tiles.Tiles(ADV, b)
             STATE = 1
         redraw()
-    elif STATE == 1:
+    elif STATE == GAME_SCREEN:
         if mouseX <= 730 and mouseX >= 10 and mouseY <= 770 and mouseY >= 50:
             val = t.click(mouseX, mouseY, mouseButton)
-            if val == 'x': STATE = 2
+            if val == 'x': STATE = END_SCREEN
+            elif val == "win":
+                ending = 1
+                STATE = END_SCREEN
         redraw()
-    elif STATE == 2:
+    elif STATE == END_SCREEN:
         if mouseX <= 365 and mouseX >= 280 and mouseY >= 350 and mouseY <= 390:
-            STATE = 0
+            STATE = TITLE_SCREEN
             redraw()
         elif mouseX <= 460 and mouseX >= 375 and mouseY >= 350 and mouseY <= 390:
             exit()

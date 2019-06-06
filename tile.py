@@ -23,9 +23,9 @@ class Tile:
         self.X_OFFSET = 0
         self.Y_OFFSET = 0
         
-        self.set_offset()
+        self.set_pixel_values()
     
-    def set_offset(self):
+    def set_pixel_values(self):
         #advanced tile offset
         if self.tile_size == 30:
             self.X_OFFSET = 11.0
@@ -57,6 +57,10 @@ class Tile:
     def show(self):
         #print(self.x_pos, self.y_pos)
         rect(self.x_pos, self.y_pos, self.tile_size, self.tile_size)
+        textSize(10)
+        fill(50)
+        text(self.val, self.x_pos + self.X_OFFSET, self.y_pos + self.Y_OFFSET)
+        fill(220,220,200)
         if self.state_flag != NOT_CLICKED:
             if self.state_flag == CLICKED:
                 if self.val == 'x': image(self.bomb_img, self.x_pos, self.y_pos, self.tile_size, self.tile_size)

@@ -1,5 +1,7 @@
 import unittest
 import board as b
+import tile as t
+import tiles as ts
 import sys
 
 EASY_SIZE = 9
@@ -9,6 +11,7 @@ EASY_MINES = 10
 MED_MINES = 40
 ADV_MINES = 99
 
+#set up testing
 def run(case=None, out=sys.stdout):
     if case is None:
         suite = unittest.TestLoader().loadTestsFromModule(sys.modules[__name__])
@@ -16,7 +19,43 @@ def run(case=None, out=sys.stdout):
         suite = unittest.TestLoader().loadTest.loadTestsFromTestCase(case)
     unittest.TextTestRunner(stream=out, verbosity=2).run(suite)
 
-class BoardTest(unittest.TestCase):
+class Tiles_Test(unittest.TestCase):
+    def test_set_tiles(self):
+        test_board = b.Board(1)
+        test_board.board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+        test_tiles = ts.Tiles(3, test_board)
+        self.assertEqual([x.val for x in test_tiles.tile_list], [0, 0, 0, 0, 0, 0, 0, 0, 0])
+        
+        test_board.board = [[1, 0, 1], [2, 3, 1], [0, 3, 0]]
+        test_tiles = ts.Tiles(3, test_board)
+        self.assertEqual([x.val for x in test_tiles.tile_list], [1, 0, 1, 2, 3, 1, 0, 3, 0])
+
+class Tile_Test(unittest.TestCase):
+    #test to ensure states change correctly
+    def test_change(self):
+        test_tile = t.Tile(0, 0, 30)
+        self.assertEqual(test_tile.state_flag, 0)
+        test_tile.change()
+        self.assertEqual(test_tile.state_flag, 2)
+        test_tile.change()
+        self.assertEqual(test_tile.state_flag, 3)
+        test_tile.change()
+        self.assertEqual(test_tile.state_flag, 0)
+        test_tile.state_flag = 1
+        test_tile.change()
+        self.assertEqual(test_tile.state_flag, 1)
+        
+    #test tile updates correctly and stays in state 1 if updated again
+    def test_update(self):
+        test_tile = t.Tile(0, 0, 30)
+        self.assertEqual(test_tile.state_flag, 0)
+        test_tile.update()
+        self.assertEqual(test_tile.state_flag, 1)
+        test_tile.update()
+        self.assertEqual(test_tile.state_flag, 1)
+        
+
+class Board_Test(unittest.TestCase):
     #test easy board correctly initialized
     def test_init_easy(self):
         test_board = b.Board(1)
