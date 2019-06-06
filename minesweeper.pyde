@@ -8,8 +8,8 @@ ADV = 24
 TITLE_SCREEN = 0
 GAME_SCREEN = 1
 END_SCREEN = 2 
-b = None
-t = None
+game_board = None
+game_tiles = None
 STATE = TITLE_SCREEN
 DIFF = 1
 ending = 0
@@ -40,10 +40,10 @@ def draw():
         fill(220, 220, 200)
     elif STATE == GAME_SCREEN:
         rect(10, 50, 270, 270)
-        t.show_tiles()
+        game_tiles.show_tiles()
     elif STATE == END_SCREEN:
         rect(10, 50, 270, 270)
-        t.show_tiles()
+        game_tiles.show_tiles()
         
         fill(220, 220, 200)
         rect(270, 300, 200, 100)
@@ -62,8 +62,8 @@ def draw():
     
 def mousePressed():
     global STATE
-    global t
-    global b
+    global game_tiles
+    global game_board
     global DIFF
     global ending
     if STATE == TITLE_SCREEN:
@@ -72,26 +72,26 @@ def mousePressed():
         rect(width/4, height/8 + 400, width/2, 100)
         if mouseX <= (width/4 + width/2) and mouseX >= width/4 and mouseY <= height/8 + 200 and mouseY >= height/8 + 100:
             DIFF = 1
-            b = board.Board(DIFF)
-            b.setup()
-            t = tiles.Tiles(EASY, b)
+            game_board = board.Board(DIFF)
+            game_board.setup()
+            game_tiles = tiles.Tiles(EASY, game_board)
             STATE = 1
         elif mouseX <= (width/4 + width/2) and mouseX >= width/4 and mouseY <= height/8 + 350 and mouseY >= height/8 + 250:
             DIFF = 2
-            b = board.Board(DIFF)
-            b.setup()
-            t = tiles.Tiles(MED, b)
+            game_board = board.Board(DIFF)
+            game_board.setup()
+            game_tiles = tiles.Tiles(MED, game_board)
             STATE = 1
         elif mouseX <= (width/4 + width/2) and mouseX >= width/4 and mouseY <= height/8 + 500 and mouseY >= height/8 + 400:
             DIFF = 3
-            b = board.Board(3)
-            b.setup()
-            t = tiles.Tiles(ADV, b)
+            game_board = board.Board(3)
+            game_board.setup()
+            game_tiles = tiles.Tiles(ADV, game_board)
             STATE = 1
         redraw()
     elif STATE == GAME_SCREEN:
         if mouseX <= 730 and mouseX >= 10 and mouseY <= 770 and mouseY >= 50:
-            val = t.click(mouseX, mouseY, mouseButton)
+            val = game_tiles.click(mouseX, mouseY, mouseButton)
             if val == 'x': STATE = END_SCREEN
             elif val == "win":
                 ending = 1
