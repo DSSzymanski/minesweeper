@@ -11,9 +11,9 @@ class Tile:
         self.tile_size = tile_size
         
         #load images
-        self.flag_img = loadImage("img/Flag.png")
-        self.question_img = loadImage("img/Question.png")
-        self.bomb_img = loadImage("img/Bomb.png")
+        self.flag_img = loadImage("data/img/Flag.png")
+        self.question_img = loadImage("data/img/Question.png")
+        self.bomb_img = loadImage("data/img/Bomb.png")
                 
         #initialize vars
         self.state_flag = NOT_CLICKED
