@@ -3,15 +3,20 @@ import board
 import test
 import stopwatch
 
+#game difficulties
 EASY = 9
 MED = 16
 ADV = 24
+
+#Game states
 TITLE_SCREEN = 0
 GAME_SCREEN = 1
-END_SCREEN = 2 
+END_SCREEN = 2
+STATE = TITLE_SCREEN
+
+#Globals
 game_board = None
 game_tiles = None
-STATE = TITLE_SCREEN
 DIFF = 1
 ending = 0
 STOPWATCH = stopwatch.Stopwatch()
@@ -25,10 +30,12 @@ def draw():
     background(220, 220, 200)
     fill(220, 220, 200)
     if STATE == TITLE_SCREEN:
+        #draw boxes
         rect(width/4, height/8 + 100, width/2, 100)
         rect(width/4, height/8 + 250, width/2, 100)
         rect(width/4, height/8 + 400, width/2, 100)
         
+        #draw text
         fill(0)
         textSize(32)
         textAlign(CENTER, CENTER)
@@ -38,20 +45,19 @@ def draw():
         text('Medium Board 16x16', width/2, height/8 + 300)
         text('Advanced Board 24x24', width/2, height/8 + 450)
         textAlign(BASELINE, BASELINE)
-        
         fill(220, 220, 200)
     
     elif STATE == GAME_SCREEN:
+        #outer border
         rect(10, 50, 270, 270)
+        #draw game
         game_tiles.show_tiles()
-        fill(0)
-        textSize(32)
-        text(str(STOPWATCH), width/2, height/8)
-        fill(220, 220, 220)
+        STOPWATCH.draw_timer()
     
     elif STATE == END_SCREEN:
         rect(10, 50, 270, 270)
         game_tiles.show_tiles()
+        STOPWATCH.draw_timer()
         
         fill(220, 220, 200)
         rect(270, 300, 200, 100)
@@ -82,6 +88,7 @@ def mousePressed():
         rect(width/4, height/8 + 400, width/2, 100)
         
         if mouseX <= (width/4 + width/2) and mouseX >= width/4 and mouseY <= height/8 + 200 and mouseY >= height/8 + 100:
+            STOPWATCH.reset()
             DIFF = 1
             game_board = board.Board(DIFF)
             game_board.setup()
@@ -89,6 +96,7 @@ def mousePressed():
             STATE = 1
         
         elif mouseX <= (width/4 + width/2) and mouseX >= width/4 and mouseY <= height/8 + 350 and mouseY >= height/8 + 250:
+            STOPWATCH.reset()
             DIFF = 2
             game_board = board.Board(DIFF)
             game_board.setup()
@@ -96,6 +104,7 @@ def mousePressed():
             STATE = 1
         
         elif mouseX <= (width/4 + width/2) and mouseX >= width/4 and mouseY <= height/8 + 500 and mouseY >= height/8 + 400:
+            STOPWATCH.reset()
             DIFF = 3
             game_board = board.Board(3)
             game_board.setup()
