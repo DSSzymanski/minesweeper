@@ -17,7 +17,7 @@ Run the program through Processing environment or see [Processing Webpage]
 command line.
 
 ## TODO
-- ['x'] Add timer
+- [x] Add timer
 - [ ] Add Mine's left count
 
 ## Usage
