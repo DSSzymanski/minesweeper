@@ -1,6 +1,7 @@
 import tiles
 import board
 import test
+import stopwatch
 
 EASY = 9
 MED = 16
@@ -13,6 +14,7 @@ game_tiles = None
 STATE = TITLE_SCREEN
 DIFF = 1
 ending = 0
+STOPWATCH = stopwatch.Stopwatch()
 
 def setup():
     test.run()
@@ -42,6 +44,10 @@ def draw():
     elif STATE == GAME_SCREEN:
         rect(10, 50, 270, 270)
         game_tiles.show_tiles()
+        fill(0)
+        textSize(32)
+        text(str(STOPWATCH), width/2, height/8)
+        fill(220, 220, 220)
     
     elif STATE == END_SCREEN:
         rect(10, 50, 270, 270)
@@ -68,6 +74,7 @@ def mousePressed():
     global game_board
     global DIFF
     global ending
+    global STOPWATCH
     
     if STATE == TITLE_SCREEN:
         rect(width/4, height/8 + 100, width/2, 100)
@@ -96,11 +103,15 @@ def mousePressed():
             STATE = 1
         
     elif STATE == GAME_SCREEN:
+        STOPWATCH.start()
         if mouseX <= 730 and mouseX >= 10 and mouseY <= 770 and mouseY >= 50:
             val = game_tiles.click(mouseX, mouseY, mouseButton)
-            if val == 'x': STATE = END_SCREEN
+            if val == 'x': 
+                STOPWATCH.stop()
+                STATE = END_SCREEN
             elif val == "win":
                 ending = 1
+                STOPWATCH.stop()
                 STATE = END_SCREEN
         
     elif STATE == END_SCREEN:
