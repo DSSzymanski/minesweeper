@@ -16,6 +16,10 @@ Run the program through Processing environment or see [Processing Webpage]
 (https://py.processing.org/tutorials/command-line/) for running through the
 command line.
 
+## TODO
+- [ ] Add timer
+- [ ] Add Mine's left count
+
 ## Usage
 - Run minesweeper.py
 - Click one of the three boxes to choose your game mode
