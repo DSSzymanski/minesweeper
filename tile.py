@@ -62,8 +62,8 @@ class Tile:
                 if self.val == 'x': image(self.bomb_img, self.x_pos, self.y_pos, self.tile_size, self.tile_size)
                 else:
                     textSize(self.text_size)
-                    fill(50)
+                    fill(0)
                     text(self.val, self.x_pos + self.X_OFFSET, self.y_pos + self.Y_OFFSET)
-                    fill(220,220,200)
+                    fill(220, 220, 200)
             elif self.state_flag == FLAG: image(self.flag_img, self.x_pos, self.y_pos, self.tile_size, self.tile_size)
             elif self.state_flag == QUESTION: image(self.question_img, self.x_pos, self.y_pos, self.tile_size, self.tile_size)

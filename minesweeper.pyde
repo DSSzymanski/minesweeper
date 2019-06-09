@@ -49,6 +49,7 @@ def draw():
     
     elif STATE == GAME_SCREEN:
         #outer border
+    
         rect(10, 50, 270, 270)
         #draw game
         game_tiles.show_tiles()
