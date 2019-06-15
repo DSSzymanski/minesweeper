@@ -4,10 +4,6 @@ import tile
 Y_BUFFER = 50
 X_BUFFER = 10
 
-#flag for tile status
-CLICKED = 1
-FLAG = 2
-
 class Tiles:
     def __init__(self, sq_size, board):
         self.sq_size = sq_size
@@ -25,7 +21,7 @@ class Tiles:
     def get_mine_count(self):
         fill(0)
         textSize(32)
-        text(str(self.mines - sum(t.state_flag == FLAG for t in self.tile_list)), width/16, height/16 - 12)
+        text(str(self.mines - sum(t.state_flag == tile.FLAG for t in self.tile_list)), width/16, height/16 - 12)
         fill(220, 220, 200)
                                     
     def set_tiles(self, board):
@@ -46,7 +42,7 @@ class Tiles:
         y = int(y / self.tile_size)
         location = (y * self.sq_size) + x
          
-        if mb == LEFT and self.tile_list[location].state_flag != CLICKED:
+        if mb == LEFT and self.tile_list[location].state_flag != tile.CLICKED:
             self.tile_list[location].update()
             val = self.tile_list[location].val
             self.tile_count += 1
