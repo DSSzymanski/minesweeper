@@ -1,3 +1,4 @@
+add_library('G4P')
 import tiles
 import board
 import test
@@ -37,6 +38,7 @@ def draw():
         visuals.draw_game_screen(game_tiles, STOPWATCH)
     elif STATE == END_SCREEN:
         visuals.draw_end_screen(tiles=game_tiles, stopwatch=STOPWATCH, prompt=end_text)
+        
     
 def mousePressed():
     global STATE
@@ -84,10 +86,3 @@ def mousePressed():
                 STOPWATCH.stop()
                 end_text = "You Win!!!"
                 STATE = END_SCREEN
-        
-    elif STATE == END_SCREEN:
-        if mouseX <= 365 and mouseX >= 280 and mouseY >= 350 and mouseY <= 390:
-            STATE = TITLE_SCREEN
-        
-        elif mouseX <= 460 and mouseX >= 375 and mouseY >= 350 and mouseY <= 390:
-            exit()
