@@ -5,11 +5,6 @@ import test
 import stopwatch
 import visuals
 
-#game difficulties
-EASY = 9
-MED = 16
-ADV = 24
-
 #Game states
 TITLE_SCREEN = 0
 GAME_SCREEN = 1
@@ -57,21 +52,21 @@ def mousePressed():
             STOPWATCH.reset()
             game_board = board.Board(1)
             game_board.setup()
-            game_tiles = tiles.Tiles(EASY, game_board)
+            game_tiles = tiles.Tiles(board.EASY_SIZE, game_board)
             STATE = 1
         
         elif mouseX <= (width/4 + width/2) and mouseX >= width/4 and mouseY <= height/8 + 350 and mouseY >= height/8 + 250:
             STOPWATCH.reset()
             game_board = board.Board(2)
             game_board.setup()
-            game_tiles = tiles.Tiles(MED, game_board)
+            game_tiles = tiles.Tiles(board.MED_SIZE, game_board)
             STATE = 1
             
         elif mouseX <= (width/4 + width/2) and mouseX >= width/4 and mouseY <= height/8 + 500 and mouseY >= height/8 + 400:
             STOPWATCH.reset()
             game_board = board.Board(3)
             game_board.setup()
-            game_tiles = tiles.Tiles(ADV, game_board)
+            game_tiles = tiles.Tiles(board.ADV_SIZE, game_board)
             STATE = 1
         
     elif STATE == GAME_SCREEN:
@@ -86,3 +81,10 @@ def mousePressed():
                 STOPWATCH.stop()
                 end_text = "You Win!!!"
                 STATE = END_SCREEN
+        
+    elif STATE == END_SCREEN:
+        if mouseX <= 365 and mouseX >= 280 and mouseY >= 350 and mouseY <= 390:
+            STATE = TITLE_SCREEN
+
+        elif mouseX <= 460 and mouseX >= 375 and mouseY >= 350 and mouseY <= 390:
+            exit()

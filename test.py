@@ -4,13 +4,6 @@ import tile as t
 import tiles as ts
 import sys
 
-EASY_SIZE = 9
-MED_SIZE = 16
-ADV_SIZE = 24
-EASY_MINES = 10
-MED_MINES = 40
-ADV_MINES = 99
-
 #set up testing
 def run(case=None, out=sys.stdout):
     if case is None:
@@ -59,26 +52,26 @@ class Board_Test(unittest.TestCase):
     #test easy board correctly initialized
     def test_init_easy(self):
         test_board = b.Board(1)
-        self.assertEqual(test_board.board, [[-1] * EASY_SIZE for i in range(EASY_SIZE)])
+        self.assertEqual(test_board.board, [[-1] * b.EASY_SIZE for i in range(b.EASY_SIZE)])
     
     #test med board correctly initialized   
     def test_init_med(self):
         test_board = b.Board(2)
-        self.assertEqual(test_board.board, [[-1] * MED_SIZE for i in range(MED_SIZE)])
+        self.assertEqual(test_board.board, [[-1] * b.MED_SIZE for i in range(b.MED_SIZE)])
                          
     #test advanced board correctly initialized                        
     def test_init_adv(self):
         test_board = b.Board(3)
-        self.assertEqual(test_board.board, [[-1] * ADV_SIZE for i in range(ADV_SIZE)])
+        self.assertEqual(test_board.board, [[-1] * b.ADV_SIZE for i in range(b.ADV_SIZE)])
         
     #test error board correctly defaults to advanced                        
     def test_init_err(self):
         test_board = b.Board(-1)
         test_board2 = b.Board(None)
         test_board3 = b.Board("hi")
-        self.assertEqual(test_board.board, [[-1] * ADV_SIZE for i in range(ADV_SIZE)])
-        self.assertEqual(test_board2.board, [[-1] * ADV_SIZE for i in range(ADV_SIZE)])
-        self.assertEqual(test_board3.board, [[-1] * ADV_SIZE for i in range(ADV_SIZE)])
+        self.assertEqual(test_board.board, [[-1] * b.ADV_SIZE for i in range(b.ADV_SIZE)])
+        self.assertEqual(test_board2.board, [[-1] * b.ADV_SIZE for i in range(b.ADV_SIZE)])
+        self.assertEqual(test_board3.board, [[-1] * b.ADV_SIZE for i in range(b.ADV_SIZE)])
         
     #test to make sure set mines 'x' adds right amount of mines per board
     def test_set_mines(self):
@@ -89,9 +82,9 @@ class Board_Test(unittest.TestCase):
         test_adv = b.Board(3)
         test_adv.set_mines()
         
-        self.assertEqual(self.count_mines(test_easy), EASY_MINES)
-        self.assertEqual(self.count_mines(test_med), MED_MINES)
-        self.assertEqual(self.count_mines(test_adv), ADV_MINES)
+        self.assertEqual(self.count_mines(test_easy), b.EASY_MINES)
+        self.assertEqual(self.count_mines(test_med), b.MED_MINES)
+        self.assertEqual(self.count_mines(test_adv), b.ADV_MINES)
         
     #counts mines 'x' in a given board
     def count_mines(self, test_board):
